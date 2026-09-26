@@ -596,11 +596,6 @@ public class ShizukuService extends Service<ShizukuUserServiceManager, ShizukuCl
         reply.putInt(BIND_APPLICATION_SERVER_PATCH_VERSION, ShizukuApiConstants.SERVER_PATCH_VERSION);
         if (!isManager) {
             ClientRecord record = Objects.requireNonNull(clientRecord);
-            // When the server runs as root, all attached clients are automatically granted access.
-            // This lets apps like Swift Backup work without an explicit grant dialog in root mode.
-            if (OsUtils.getUid() == 0 && !record.allowed) {
-                record.allowed = true;
-            }
             if (!record.allowed) {
                 if (checkCallingPermission() == PackageManager.PERMISSION_GRANTED ||
                     (getFlagsForUidInternal(callingUid, ConfigManager.MASK_PERMISSION, true) & ConfigManager.FLAG_ALLOWED) == ConfigManager.FLAG_ALLOWED) {
