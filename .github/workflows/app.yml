@@ -166,14 +166,7 @@ jobs:
             echo "filePath=${RENAMED}" >> $GITHUB_OUTPUT
           else
             CMD="./gradlew :manager:assembleShizukuplusRelease :manager:assembleDropinRelease $ARGS"
-            eval $CMD --stacktrace --info \
-              -x uploadSentryProguardMappingsShizukuplusRelease \
-              -x uploadSentryProguardMappingsDropinRelease \
-              -x uploadSentryNativeSymbolsForShizukuplusRelease \
-              -x uploadSentryNativeSymbolsForDropinRelease \
-              -x sentryUploadSourceBundleShizukuplusRelease \
-              -x sentryUploadSourceBundleDropinRelease \
-              -x :manager:lint
+            eval $CMD --stacktrace --info -x :manager:lint
 
             sign_apk() {
               local FILE="$1"
